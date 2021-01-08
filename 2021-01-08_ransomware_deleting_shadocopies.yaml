@@ -1,0 +1,21 @@
+title: Ransomware deleting shadowcopies
+status: stable
+description: Detects Ransomware via shadowcopies deletion
+author: CyberDefenders
+date: 2021-01-08
+logsource:
+    product: windows
+    service: sysmon
+detection:
+    selection1:
+        Image|endswith:
+            - 'wmic.exe'
+        CommandLine|contains:
+            - 'shadowcopy delete'
+    selection2:
+        Image|endswith:
+            - 'vssadmin.exe'
+        CommandLine|contains:
+            - 'delete shadows'  
+    condition: selection1 or selection2
+level: high
