@@ -1,0 +1,16 @@
+title: Sidewinder APT RAT
+status: stable
+description: Detects Sidewinder APT RAT via DLL Sideloading through vulnerable Rekeywiz.exe 
+references:
+- https://cybleinc.com/2020/09/26/sidewinder-apt-targets-with-futuristic-tactics-and-techniques/
+author: CyberDefenders
+date: 2021-01-08
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection:
+      EventID: 11
+      TargetFilename|endswith: '\ProgramData\*\rekeywiz.exe'
+  condition: selection
+level: high
