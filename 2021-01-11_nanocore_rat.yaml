@@ -1,0 +1,20 @@
+title: Nanocore RAT
+status: stable
+description: Detects Nanocore RAT infection via registry key and file artifact
+author: CyberDefenders
+date: 2021/01/11
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection1:
+      EventID: 13
+      Image|endswith: 'InstallUtil.exe'
+      TargetObject|endswith: 'Microsoft\Windows\CurrentVersion\Run\* Monitor'
+      Details|endswith: 'Monitor\*mon.exe'
+  selection2:
+      EventID: 11
+      Image|endswith: 'Temp\InstallUtil.exe'
+      TargetFilename|endswith: 'AppData\Roaming\*\run.dat'
+  condition: selection1 or selection2
+level: high
